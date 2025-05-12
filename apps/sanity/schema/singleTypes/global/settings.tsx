@@ -21,6 +21,7 @@ export default defineType({
       name: 'tel',
       type: 'string',
       title: 'Phone number (optional)',
+      group: 'contact',
       validation: Rule =>
         Rule.regex(/^(?:\+(?:\d{1,3}))?(?:[ -]?\(?\d{1,4}\)?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,6})$/).error(
           'Invalid phone number'
