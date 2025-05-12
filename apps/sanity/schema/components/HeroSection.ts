@@ -21,19 +21,30 @@ export default defineField({
       validation: Rule => Rule.required(),
     }),
     defineField({
-      name: 'points',
-      type: 'array',
-      title: 'Points',
-      of: [{ type: 'string' }],
-      options: {
-        layout: 'tags',
-      },
-      validation: Rule => Rule.unique().min(2).max(3).required(),
+      name: 'paragraph',
+      type: 'PortableText',
+      title: 'Paragraph',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'image',
       type: 'image',
       title: 'Image',
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'imagePosition',
+      type: 'string',
+      title: 'Image Position',
+      description: 'Choose on which side the image should appear: left or right.',
+      options: {
+        list: [
+          { title: 'Left', value: 'left' },
+          { title: 'Right', value: 'right' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'left',
       validation: Rule => Rule.required(),
     }),
     defineField({

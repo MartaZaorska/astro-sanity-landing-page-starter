@@ -1,5 +1,4 @@
 import { defineType } from 'sanity';
-import SimplePhotoAndText from './components/SimplePhotoAndText';
 import HeroSection from './components/HeroSection';
 import Faq from './components/Faq';
 import ContactForm from './components/ContactForm';
@@ -10,7 +9,7 @@ export default defineType({
   title: 'Components',
   description:
     'Build your page by adding customizable components. Drag and drop to reorder, each component renders sequentially to create your landing page layout.',
-  of: [SimplePhotoAndText, HeroSection, Faq, ContactForm],
+  of: [HeroSection, Faq, ContactForm],
   options: {
     insertMenu: {
       filter: true,

@@ -15,6 +15,9 @@ node_modules
 # Turbo
 .turbo
 
+# Vercel
+.vercel
+
 
 # Build Outputs
 output-file.txt
