@@ -197,10 +197,6 @@ const svgContent = annotation?.icon ? await imageToInlineSvg(annotation.icon) : 
         transform 400ms 0ms,
         visibility 1ms 400ms;
 
-      @supports (height: 100svh) {
-        height: 100svh;
-      }
-
       @media (min-width: 48rem) {
         background-color: transparent;
         position: relative;
@@ -347,11 +343,11 @@ const svgContent = annotation?.icon ? await imageToInlineSvg(annotation.icon) : 
   const overlay = header.querySelector<HTMLDivElement>('.overlay')!;
   const nav = header.querySelector('nav')!;
 
-  menuButton.addEventListener('click', () => toggleMenu(header.dataset.opened === 'true'));
+  if(menuButton) menuButton.addEventListener('click', () => toggleMenu(header.dataset.opened === 'true'));
 
-  overlay.addEventListener('click', () => toggleMenu(true));
+  if(overlay) overlay.addEventListener('click', () => toggleMenu(true));
 
-  nav.addEventListener('focusout', () => {
+  if(nav) nav.addEventListener('focusout', () => {
     const isFocus = !!document.querySelector('.Header:focus-within');
     if (!isFocus) toggleMenu(true);
   });
