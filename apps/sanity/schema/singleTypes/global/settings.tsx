@@ -1,6 +1,12 @@
-import { SettingsIcon, MapPinIcon, FileTextIcon, Building2Icon, ChartSplineIcon } from 'lucide-react';
+import {
+  SettingsIcon,
+  MapPinIcon,
+  FileTextIcon,
+  Building2Icon,
+  ChartSplineIcon,
+} from 'lucide-react';
 import { defineField, defineType } from 'sanity';
-import validateTime from '../../../utils/validate-time';
+import { validateTime } from '../../../utils/validate-time';
 
 export default defineType({
   name: 'global',
@@ -23,9 +29,9 @@ export default defineType({
       title: 'Phone number (optional)',
       group: 'contact',
       validation: Rule =>
-        Rule.regex(/^(?:\+(?:\d{1,3}))?(?:[ -]?\(?\d{1,4}\)?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,6})$/).error(
-          'Invalid phone number'
-        ),
+        Rule.regex(
+          /^(?:\+(?:\d{1,3}))?(?:[ -]?\(?\d{1,4}\)?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,6})$/
+        ).error('Invalid phone number'),
     }),
     defineField({
       name: 'openHours',
@@ -240,7 +246,8 @@ export default defineType({
           name: 'name',
           type: 'string',
           title: 'Name',
-          description: 'Enter the name of your organization as you want it to appear in search results.',
+          description:
+            'Enter the name of your organization as you want it to appear in search results.',
           validation: Rule => Rule.required(),
         }),
         defineField({
@@ -248,7 +255,8 @@ export default defineType({
           type: 'text',
           rows: 3,
           title: 'Description',
-          description: 'A brief description of your organization that will appear in search results.',
+          description:
+            'A brief description of your organization that will appear in search results.',
           validation: Rule => Rule.required(),
         }),
         defineField({
@@ -336,7 +344,8 @@ export default defineType({
           name: 'gtmId',
           type: 'string',
           title: 'Google Tag Manager ID',
-          description: 'Format: GTM-XXXXXX. Container ID for managing analytics tools (GA4, Facebook Pixel, etc.).',
+          description:
+            'Format: GTM-XXXXXX. Container ID for managing analytics tools (GA4, Facebook Pixel, etc.).',
           validation: Rule =>
             Rule.custom(value => {
               if (!value) return true;

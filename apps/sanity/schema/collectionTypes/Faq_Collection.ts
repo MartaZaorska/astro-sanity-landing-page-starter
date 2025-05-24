@@ -31,9 +31,9 @@ export default defineType({
       answer: 'answer',
     },
     prepare: ({ question, answer }) => ({
-      title: toPlainText(question),
-      subtitle: toPlainText(answer),
-      icon,
+      title: question ? toPlainText(question) : 'FAQ Item',
+      subtitle: answer ? toPlainText(answer) : '',
+      icon: MessageCircleQuestionIcon,
     }),
   },
 });

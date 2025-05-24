@@ -3,13 +3,11 @@ import { defineField, defineType } from 'sanity';
 import { defineSlugForDocument } from '../../utils/define-slug-for-document';
 import { getNavigationFields } from '../singleTypes/global/navigation';
 
-const icon = PanelsTopLeft;
-
 export default defineType({
   name: 'page',
   title: 'Landing',
   type: 'document',
-  icon,
+  icon: PanelsTopLeft,
   options: { documentPreview: true },
   fields: [
     defineField({
@@ -31,9 +29,9 @@ export default defineType({
           type: 'string',
           title: 'Phone number (optional)',
           validation: Rule =>
-            Rule.regex(/^(?:\+(?:\d{1,3}))?(?:[ -]?\(?\d{1,4}\)?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,6})$/).error(
-              'Invalid phone number'
-            ),
+            Rule.regex(
+              /^(?:\+(?:\d{1,3}))?(?:[ -]?\(?\d{1,4}\)?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,6})$/
+            ).error('Invalid phone number'),
         }),
         ...getNavigationFields({ isRequired: false }),
       ],
@@ -46,7 +44,10 @@ export default defineType({
       validation: Rule => Rule.required(),
       group: 'content',
     }),
-    ...defineSlugForDocument({ source: 'name', checkSlugMatch: false }).map(field => ({ ...field, group: 'content' })),
+    ...defineSlugForDocument({ source: 'name', checkSlugMatch: false }).map(field => ({
+      ...field,
+      group: 'content',
+    })),
     defineField({
       name: 'components',
       type: 'components',
@@ -79,14 +80,14 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'seo.title',
+      title: 'name',
       slug: 'slug.current',
     },
     prepare({ title, slug }) {
       return {
         title,
         subtitle: slug,
-        icon,
+        icon: PanelsTopLeft,
       };
     },
   },

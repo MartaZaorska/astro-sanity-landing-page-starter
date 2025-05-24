@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity';
 import { LinkIcon } from 'lucide-react';
-import { InternalLinkableTypes } from '../../../structure/internal-linkable-types';
+import { getLinkFields } from '../../ui/link';
 
 const LinkField = defineField({
   name: 'link',
@@ -15,63 +15,12 @@ const LinkField = defineField({
       validation: Rule =>
         Rule.custom((value, { parent }) => {
           const linkType = (parent as { linkType?: string })?.linkType;
-          if (linkType === 'anchor' && !value) return 'You must define a title for the anchor link.';
+          if (linkType === 'anchor' && !value)
+            return 'You must define a title for the anchor link.';
           return true;
         }),
     }),
-    defineField({
-      name: 'linkType',
-      type: 'string',
-      title: 'Type',
-      description: (
-        <>
-          <em>Internal</em> (within your site), or <em>Anchor</em> (section on same page)
-        </>
-      ),
-      options: {
-        list: ['internal', 'anchor'],
-        layout: 'radio',
-        direction: 'horizontal',
-      },
-      initialValue: 'internal',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'internal',
-      type: 'reference',
-      title: 'Internal reference to page',
-      description: 'Select an internal page to link to.',
-      to: InternalLinkableTypes,
-      options: {
-        disableNew: true,
-        filter: 'defined(slug.current)',
-      },
-      hidden: ({ parent }) => parent?.linkType !== 'internal',
-      validation: Rule =>
-        Rule.custom((value, { parent }) => {
-          const linkType = (parent as { linkType?: string })?.linkType;
-          if (linkType === 'internal' && !value?._ref) return 'You have to choose internal page to link to.';
-          return true;
-        }),
-    }),
-    defineField({
-      name: 'anchor',
-      type: 'string',
-      title: 'Anchor ID',
-      description: 'Enter the ID of the section to scroll to (with the # symbol)',
-      hidden: ({ parent }) => parent?.linkType !== 'anchor',
-      validation: Rule =>
-        Rule.custom((value, { parent }) => {
-          const linkType = (parent as { linkType?: string })?.linkType;
-          if (linkType !== 'anchor') return true;
-          if (!value) return 'Anchor ID is required';
-          if (!value.startsWith('#')) return 'Include the # symbol';
-          if (!/^#[a-zA-Z0-9_-]+$/.test(value))
-            return 'Anchor ID should only contain letters, numbers, hyphens or underscores';
-
-          return true;
-        }),
-    }),
+    ...getLinkFields({ linkTypes: ['internal', 'anchor'], allowInternalWithAnchor: true }),
   ],
   preview: {
     select: {
@@ -84,7 +33,7 @@ const LinkField = defineField({
     prepare({ title, linkType, internal, internalName, anchor }) {
       return {
         title: title ? `${title}` : `${internalName}`,
-        subtitle: linkType == 'internal' ? `${internal}` : `${anchor}`,
+        subtitle: linkType == 'internal' ? `${internal}${anchor ? anchor : ''}` : `${anchor}`,
         icon: LinkIcon,
       };
     },
