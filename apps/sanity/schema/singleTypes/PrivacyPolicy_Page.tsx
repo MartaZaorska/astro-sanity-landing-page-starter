@@ -1,15 +1,19 @@
 import { LockKeyholeIcon } from 'lucide-react';
 import { defineField } from 'sanity';
 import { PortableText } from '../ui/PortableText';
-import { defineSingletonPage } from '../../templates/singletonPage';
+import { defineSlugForDocument } from '../../utils/define-slug-for-document';
+import { definePage } from '../../templates/page';
 
-export default defineSingletonPage({
+export default definePage({
   name: 'PrivacyPolicy_Page',
   title: 'Privacy Policy',
-  slug: '/polityka-prywatnosci',
   icon: LockKeyholeIcon,
   withComponents: false,
   additionalFields: [
+    ...defineSlugForDocument({ slug: '/polityka-prywatnosci' }).map(field => ({
+      ...field,
+      group: 'content',
+    })),
     defineField({
       name: 'heading',
       type: 'Heading',

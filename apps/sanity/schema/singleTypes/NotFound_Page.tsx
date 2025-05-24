@@ -1,9 +1,12 @@
 import { CircleXIcon } from 'lucide-react';
-import { defineSingletonPage } from '../../templates/singletonPage';
+import { definePage } from '../../templates/page';
+import { defineSlugForDocument } from '../../utils/define-slug-for-document';
 
-export default defineSingletonPage({
+export default definePage({
   name: 'NotFound_Page',
   title: 'Not Found Page (404)',
-  slug: '/404',
   icon: CircleXIcon,
+  additionalFields: [
+    ...defineSlugForDocument({ slug: '/404' }).map(field => ({ ...field, group: 'content' })),
+  ],
 });

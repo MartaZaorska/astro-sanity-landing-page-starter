@@ -1,15 +1,14 @@
-import { type FieldDefinition, defineType, defineField } from 'sanity';
+import { type FieldDefinition, defineType, defineField, type FieldGroupDefinition } from 'sanity';
 import { FileTextIcon, SearchIcon, type LucideIcon } from 'lucide-react';
-import { defineSlugForDocument } from '../utils/define-slug-for-document';
 
-type Page = 'PrivacyPolicy_Page' | 'NotFound_Page';
+type Page = 'PrivacyPolicy_Page' | 'NotFound_Page' | 'page';
 
 type Props = {
   name: Page;
   title: string;
-  slug: string;
   icon: LucideIcon | React.FC | string;
   withComponents?: boolean;
+  additionalGroups?: Array<FieldGroupDefinition>;
   additionalFields?: FieldDefinition<
     | 'string'
     | 'number'
@@ -34,12 +33,12 @@ type Props = {
   >[];
 };
 
-export const defineSingletonPage = ({
+export const definePage = ({
   name,
   title,
-  slug,
   icon,
   withComponents = true,
+  additionalGroups = [],
   additionalFields = [],
 }: Props) =>
   defineType({
@@ -49,7 +48,6 @@ export const defineSingletonPage = ({
     icon,
     options: { documentPreview: true },
     fields: [
-      ...defineSlugForDocument({ slug }).map(field => ({ ...field, group: 'content' })),
       ...additionalFields,
       ...(withComponents
         ? [
@@ -79,11 +77,14 @@ export const defineSingletonPage = ({
         title: 'SEO',
         icon: () => <SearchIcon size={18} />,
       },
+      ...additionalGroups,
     ],
     preview: {
-      prepare: () => ({
-        title,
-        subtitle: slug,
-      }),
+      select: {
+        title: 'name',
+        subtitle: 'slug.current',
+        media: 'image',
+        icon: 'icon',
+      },
     },
   });

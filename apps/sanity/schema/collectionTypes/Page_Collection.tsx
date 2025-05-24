@@ -1,15 +1,14 @@
-import { PanelsTopLeft, FileTextIcon, SearchIcon, SettingsIcon } from 'lucide-react';
-import { defineField, defineType } from 'sanity';
+import { PanelsTopLeft, SettingsIcon } from 'lucide-react';
+import { defineField } from 'sanity';
 import { defineSlugForDocument } from '../../utils/define-slug-for-document';
 import { getNavigationFields } from '../singleTypes/global/navigation';
+import { definePage } from '../../templates/page';
 
-export default defineType({
+export default definePage({
   name: 'page',
   title: 'Landing',
-  type: 'document',
   icon: PanelsTopLeft,
-  options: { documentPreview: true },
-  fields: [
+  additionalFields: [
     defineField({
       name: 'localSettings',
       title: 'Local Settings',
@@ -48,47 +47,12 @@ export default defineType({
       ...field,
       group: 'content',
     })),
-    defineField({
-      name: 'components',
-      type: 'components',
-      title: 'Page Components',
-      group: 'content',
-    }),
-    defineField({
-      name: 'seo',
-      type: 'seo',
-      title: 'SEO',
-      group: 'seo',
-    }),
   ],
-  groups: [
+  additionalGroups: [
     {
       name: 'localSettings',
       title: 'Local Settings',
       icon: () => <SettingsIcon size={18} />,
     },
-    {
-      name: 'content',
-      title: 'Content',
-      icon: () => <FileTextIcon size={18} />,
-    },
-    {
-      name: 'seo',
-      title: 'SEO',
-      icon: () => <SearchIcon size={18} />,
-    },
   ],
-  preview: {
-    select: {
-      title: 'name',
-      slug: 'slug.current',
-    },
-    prepare({ title, slug }) {
-      return {
-        title,
-        subtitle: slug,
-        icon: PanelsTopLeft,
-      };
-    },
-  },
 });
