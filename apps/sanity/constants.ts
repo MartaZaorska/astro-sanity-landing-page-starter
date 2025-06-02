@@ -3,14 +3,15 @@
  * This constant is used for constructing full URLs and determining external links.
  * @constant
  */
-export const DOMAIN: string = '';
+export const DOMAIN: string = 'https://astro-sanity-landing-page-starter-a.vercel.app';
 
 /**
  * Domain used for preview functionality in development environment.
  * This constant defines the URL where content previews are rendered.
  * @constant
  */
-export const PREVIEW_DOMAIN: string = '';
+export const PREVIEW_DOMAIN: string =
+  'https://astro-sanity-landing-page-s-git-209632-martas-projects-dc5a3ca2.vercel.app';
 
 /**
  * Sanity project identifier.

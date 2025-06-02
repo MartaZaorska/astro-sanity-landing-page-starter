@@ -28,7 +28,7 @@ export const LOCALE: string = 'pl';
  * @constant
  * @type {string}
  */
-export const DOMAIN: string = 'https://astro-sanity-landing-page-starter-a.vercel.app/';
+export const DOMAIN: string = 'https://astro-sanity-landing-page-starter-a.vercel.app';
 
 /**
  * Global declaration of the default title for the application.
