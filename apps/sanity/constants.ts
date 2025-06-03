@@ -38,4 +38,4 @@ export const STUDIO_HOST: string = '';
  * Application title.
  * @constant
  */
-export const TITLE: string = 'starter-landing-page';
+export const TITLE: string = '';
