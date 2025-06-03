@@ -12,10 +12,10 @@ Create a `.env` file in the root of the project with your environment variables:
 
 Then, update project-specific values with your project details in the following files:
 
-- `apps/sanity/constants.ts`
-- `apps/astro/src/global/constants.ts`
+- `/apps/sanity/constants.ts`
+- `/apps/astro/src/global/constants.ts`
 
-Also, make sure to modify `/api/contact.ts` with the correct email addresses or endpoints used for handling contact form submissions.
+Also, make sure to modify `/apps/astro/src/pages/api/contact.ts` with the correct email addresses or endpoints used for handling contact form submissions.
 
 ## Customization
 
